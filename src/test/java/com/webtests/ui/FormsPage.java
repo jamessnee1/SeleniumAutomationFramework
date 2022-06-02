@@ -2,8 +2,10 @@ package com.webtests.ui;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,9 +13,10 @@ import java.util.List;
 
 public class FormsPage {
 
-    private ChromeDriver driver;
+    //private ChromeDriver driver;
+    private WebDriver driver;
 
-    public FormsPage(ChromeDriver driver){
+    public FormsPage(WebDriver driver){
         this.driver = driver;
     }
 

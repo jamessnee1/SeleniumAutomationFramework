@@ -1,14 +1,16 @@
 package com.webtests.ui;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Menu {
 
-    private ChromeDriver driver;
+    private WebDriver driver;
 
-    public Menu(ChromeDriver driver){
+    public Menu(WebDriver driver){
         this.driver = driver;
     }
 
