@@ -31,6 +31,8 @@ public class UITestSuite extends BaseTestSuite {
         //Validate Agree Error
         Assertions.assertEquals(expectedAgreeError, formsPage.getErrorMessageText("agree-err").trim());
 
+        System.out.println("ValidateFormErrorsTest PASSED!");
+
     }
 
     @Test
@@ -62,6 +64,8 @@ public class UITestSuite extends BaseTestSuite {
         //Confirmation popup
         Assertions.assertEquals(formsPage.getPopupMessageText(), confirmationMessage);
 
+        System.out.println("FormTest PASSED!");
+
     }
 
     @Test
@@ -78,6 +82,8 @@ public class UITestSuite extends BaseTestSuite {
 
         //Validate distance
         Assertions.assertEquals("778,500,000 km", jupiter.getPlanetDistanceAsString());
+
+        System.out.println("DistanceToJupiterTest PASSED!");
     }
 
     @Test
