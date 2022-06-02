@@ -22,6 +22,10 @@ public class PlanetTile {
         return Long.parseLong(distance);
     }
 
+    public String getPlanetDistanceAsString(){
+        return el.findElement(By.className("distance")).getText();
+    }
+
     public String getPlanetRadius(){
         return el.findElement(By.className("radius")).getText();
     }

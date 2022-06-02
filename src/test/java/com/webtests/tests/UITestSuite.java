@@ -77,7 +77,7 @@ public class UITestSuite extends BaseTestSuite {
         var jupiter = planetsPage.findPlanetTileByName("jupiter");
 
         //Validate distance
-        Assertions.assertEquals("778,500,000 km", jupiter.getPlanetDistance());
+        Assertions.assertEquals("778,500,000 km", jupiter.getPlanetDistanceAsString());
     }
 
     @Test
