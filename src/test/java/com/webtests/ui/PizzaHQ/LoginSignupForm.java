@@ -4,11 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginSignupPage {
+public class LoginSignupForm {
 
     private WebDriver driver;
 
-    public LoginSignupPage(WebDriver driver){
+    public LoginSignupForm(WebDriver driver){
         this.driver = driver;
     }
 
@@ -23,7 +23,7 @@ public class LoginSignupPage {
     }
 
     public void clickSignupButton(){
-        WebElement signupButton = driver.findElement(By.tagName("Sign Up"));
+        WebElement signupButton = driver.findElement(By.linkText("Sign Up"));
         signupButton.click();
     }
 

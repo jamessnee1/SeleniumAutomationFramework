@@ -177,17 +177,13 @@ public class PizzaHQTestSuite extends BaseTest {
         //Verify that Your Profile button does not exist in menu
         WebDriverWait wait = new WebDriverWait(driver,5);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("[aria-label='your profile']")));
+
+        //Verify that the Header is present for the Homepage
+        Assertions.assertEquals("Welcome to PizzaHQ", driver.findElement(By.tagName("h1")).getText());
     }
 
     @Test
     public void signupFieldValidationErrorMessagesTest(){
-        //Setup data
-        String username = "abc";
-        String password = "abc";
-        String confirmPassword = "def";
-        String expectedUsernameError = "Username is required";
-        String expectedPasswordError = "Password is required";
-        String expectedConfirmPasswordError = "Please confirm your password";
 
         //Click the LOGIN/SIGNUP navigation menu item (it has a user icon)
         PizzaHQMenu menu = new PizzaHQMenu(driver);
@@ -203,28 +199,55 @@ public class PizzaHQTestSuite extends BaseTest {
 
         //Verify the error text for the Username, Password and Confirm Password fields:
         //Username is required
-        //Assertions.assertEquals(expectedUsernameError, signupForm.getErrorMessageText("username-err"));
+        Assertions.assertEquals("Username is required", signupForm.getErrorMessageText("username-err"));
         //Password is required
-        //Assertions.assertEquals(expectedPasswordError, signupForm.getErrorMessageText("password-err"));
+        Assertions.assertEquals("Password is required", signupForm.getErrorMessageText("password-err"));
         //Please confirm your password
-        //Assertions.assertEquals(expectedConfirmPasswordError, signupForm.getErrorMessageText("confirm-err"));
+        Assertions.assertEquals("Please confirm your password", signupForm.getErrorMessageText("confirm-err"));
 
         //Enter ‘abc’ into the Username field
+        signupForm.setUsername("abc");
         //Enter ‘abc’ into the Password field
+        signupForm.setPassword("abc");
         //Enter ‘def’ into the Confirm Password field
+        signupForm.setConfirmPassword("def");
         //Verify the error text for the Username, Password and Confirm Password fields:
         //Username must be minimum of 6 characters
+        Assertions.assertEquals("Username must be minimum of 6 characters", signupForm.getErrorMessageText("username-err"));
         //Username must be minimum of 8 characters
+        Assertions.assertEquals("Password must be minimum of 8 characters", signupForm.getErrorMessageText("password-err"));
         //Your passwords do not match
+        Assertions.assertEquals("Your passwords do not match", signupForm.getErrorMessageText("confirm-err"));
+
         //Enter ‘donaldtrump’ into the Username field
+        signupForm.clearUsername();
+        signupForm.setUsername("donaldtrump");
         //Verify the error text for the Username field:
         //Username already exists
+        Assertions.assertEquals("Username already exists", signupForm.getErrorMessageText("username-err"));
+
         //Enter ‘robinhood’ into the Username field
+        signupForm.clearUsername();
+        signupForm.setUsername("robinhood");
         //Enter ‘letmein2019’ into the Password field
+        signupForm.clearPassword();
+        signupForm.setPassword("letmein2019");
         //Enter ‘letmein2019 into the Confirm Password field
+        signupForm.clearConfirmPassword();
+        signupForm.setConfirmPassword("letmein2019");
+
         //Verify the Username, Password and Confirm Password errors are empty or no longer displayed
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("username-err")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("password-err")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("confirm-err")));
+
+        //Click Sign Up (step was not in requirements)
+        signupForm.clickSignupButton();
+
         //Verify that the snackbar popup message text is
         //‘Thanks robinhood, you can now login.’
+        Assertions.assertEquals("Thanks robinhood, you can now login.", signupForm.getPopupMessageText());
     }
 
     @Test
