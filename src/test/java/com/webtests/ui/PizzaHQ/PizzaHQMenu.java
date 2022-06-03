@@ -3,6 +3,7 @@ package com.webtests.ui.PizzaHQ;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class PizzaHQMenu {
 
@@ -40,5 +41,23 @@ public class PizzaHQMenu {
     public void navigateToYourOrderPage(){
         WebElement yourOrderMenuButton = driver.findElement(By.cssSelector("[aria-label='your order']"));
         yourOrderMenuButton.click();
+    }
+
+    public void navigateToYourProfilePage(){
+        WebElement yourProfileMenuButton = driver.findElement(By.cssSelector("[aria-label='your profile']"));
+        yourProfileMenuButton.click();
+    }
+
+    public void logout(){
+        WebElement yourProfileMenuButton = driver.findElement(By.cssSelector("[aria-label='your profile']"));
+
+        //Create a new action
+        Actions action = new Actions(driver);
+
+        //Move mouse to element
+        action.moveToElement(yourProfileMenuButton);
+
+        WebElement logoutDropdown = driver.findElement(By.className("dd-nav-logout"));
+        logoutDropdown.click();
     }
 }

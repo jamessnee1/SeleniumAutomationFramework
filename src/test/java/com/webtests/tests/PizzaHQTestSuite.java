@@ -1,8 +1,6 @@
 package com.webtests.tests;
 
-import com.webtests.ui.PizzaHQ.ContactPage;
-import com.webtests.ui.PizzaHQ.LoginSignupPage;
-import com.webtests.ui.PizzaHQ.PizzaHQMenu;
+import com.webtests.ui.PizzaHQ.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -117,16 +115,21 @@ public class PizzaHQTestSuite extends BaseTest {
         //Click the LOGIN/SIGNUP navigation menu item (it has a user icon)
         PizzaHQMenu menu = new PizzaHQMenu(driver);
         menu.navigateToLoginOrSignupPage();
+
         //Click the LOGIN button
         LoginSignupPage loginSignupPage = new LoginSignupPage(driver);
         loginSignupPage.clickLoginButton();
+
         //Verify that the alert message says:
         //Your login was unsuccessful - please try again
         Assertions.assertEquals("Your login was unsuccessful - please try again", loginSignupPage.getErrorMessageText());
-        //4.	Click the alert message dismiss icon (a red circle with a white X)
+
+        //Click the alert message dismiss icon (a red circle with a white X)
         loginSignupPage.dismissErrorMessage();
-        //5.	Verify that the alert message is no longer displayed
+
+        //Verify that the alert message is no longer displayed
         WebDriverWait wait = new WebDriverWait(driver,5);
+
         //Verify email error is not visible/empty
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("v-alert__content")));
 
@@ -134,7 +137,50 @@ public class PizzaHQTestSuite extends BaseTest {
 
     @Test
     public void loginProfileValidationTest(){
+        //Set data
+        String username = "bob";
+        String password = "ilovepizza";
 
+        //Click the LOGIN/SIGNUP navigation menu item (it has a user icon)
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToLoginOrSignupPage();
+
+        //Enter ‘bob’ into the Username field
+        LoginSignupPage loginSignupPage = new LoginSignupPage(driver);
+        loginSignupPage.setUsername(username);
+
+        //Enter ‘ilovepizza’ into the Password field
+        loginSignupPage.setPassword(password);
+
+        //Click the LOGIN button
+        loginSignupPage.clickLoginButton();
+
+        //Click the PROFILE navigation menu item (it has a user icon and shows the username ‘BOB’)
+        menu.navigateToYourProfilePage();
+
+        //Verify that the header text on the profile page says
+        //Welcome bob
+        ProfilePage profilePage = new ProfilePage(driver);
+        Assertions.assertEquals("Welcome bob", profilePage.getLoggedInMessage(username));
+
+        //Capture the current page URL
+        String currentUrl = driver.getCurrentUrl();
+
+        //Hover the mouse over the PROFILE navigation menu item
+        //Click the Logout dropdown menu item
+        menu.logout();
+
+        //Click the YES button in the Logout confirmation dialog
+        ConfirmLogoutDialog confirmLogoutDialog = new ConfirmLogoutDialog(driver);
+        confirmLogoutDialog.clickYes();
+
+        //Attempt to navigate to the captured Profile page URL
+        driver.get(currentUrl);
+
+        //Verify that you are redirected to the home page
+        //Verify that Your Profile button does not exist in menu
+        WebDriverWait wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("[aria-label='your profile']")));
     }
 
     @Test

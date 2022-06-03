@@ -27,4 +27,5 @@ public class Menu {
     public void navigateToHomePage(){
         WebElement homeMenuButton = driver.findElement(By.cssSelector("[aria-label='home']"));
     }
+
 }
