@@ -1,12 +1,12 @@
 package com.webtests.tests;
 
-import com.webtests.ui.FormsPage;
-import com.webtests.ui.Menu;
-import com.webtests.ui.PlanetsPage;
+import com.webtests.ui.FormsPlanets.FormsPage;
+import com.webtests.ui.FormsPlanets.Menu;
+import com.webtests.ui.FormsPlanets.PlanetsPage;
 import org.junit.jupiter.api.*;
 
 
-public class UITestSuite extends BaseTestSuite {
+public class UITest extends BaseTest {
 
     @Test
     public void validateFormErrorsTest(){

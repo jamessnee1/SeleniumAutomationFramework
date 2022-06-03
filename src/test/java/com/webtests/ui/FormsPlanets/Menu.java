@@ -1,4 +1,4 @@
-package com.webtests.ui;
+package com.webtests.ui.FormsPlanets;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
