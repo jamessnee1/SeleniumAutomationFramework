@@ -253,27 +253,55 @@ public class PizzaHQTestSuite extends BaseTest {
     @Test
     public void menuItemKilojoulesAndPriceTest(){
 
+        //Navigate to the Menu page by clicking the MENU navigation menu item
+        //Click the SIDES tab item
+        //Locate the ‘Chunky Chips and Aioli’ menu item and verify that:
+        //The Kilojoules are 3273
+        //The price is 9.99
 
     }
 
     @Test
     public void newSideDishTest(){
 
+        //Navigate to the Menu page by clicking the MENU navigation menu item
+        //Click the SIDES tab item
+        //Locate the menu item with the NEW flag and verify that:
+        //The title is ‘Korean Sticky Wings’
+        //The image has an alt attribute value of ‘Korean Sticky Wings’
+
     }
 
     @Test
     public void veganPizzaSliceTest(){
-
+        //Navigate to the Menu page by clicking the MENU navigation menu item
+        //Locate each of the Vegan pizzas and verify that the price is 14.99
     }
 
     @Test
     public void menuItemRatingsTest(){
-
+        //Navigate to the Menu page by clicking the MENU navigation menu item
+        //Click the DRINKS tab item
+        //Locate the menu item with a ‘0’ star rating and attempt to rate the item by clicking the third star.
+        //Verify that the item still has a ‘0’ star rating
+        //Click the LOGIN/SIGNUP navigation menu item (it has a user icon)
+        //Enter ‘bob’ into the Username field
+        //Enter ‘ilovepizza’ into the Password field
+        //Click the LOGIN button
+        //Locate the menu item with a ‘0’ star rating and rate the item by clicking the third star
+        //Verify that the menu item now has a ‘3’ star rating
     }
 
     @Test
     public void orderCountAndItemSubtotalTest(){
-
+        //Navigate to the Menu page by clicking the MENU navigation menu item
+        //Click the DRINKS tab item
+        //Locate the ‘Espresso Thickshake’ menu item and click its ORDER button
+        //Click the PIZZAS tab item
+        //Locate the ‘Margherita’ menu item and click its ORDER button twice
+        //Verify that the order count icon in the navigation menu displays 3
+        //Click the Your Order navigation menu icon
+        //Locate the ‘Margherita’ item in the Your Order table and verify that the Subtotal displays 19.98.
 
     }
 }
