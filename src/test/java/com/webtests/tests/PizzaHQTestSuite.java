@@ -4,8 +4,6 @@ import com.webtests.ui.PizzaHQ.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -117,20 +115,18 @@ public class PizzaHQTestSuite extends BaseTest {
         menu.navigateToLoginOrSignupPage();
 
         //Click the LOGIN button
-        LoginSignupPage loginSignupPage = new LoginSignupPage(driver);
-        loginSignupPage.clickLoginButton();
+        LoginSignupForm loginSignupForm = new LoginSignupForm(driver);
+        loginSignupForm.clickLoginButton();
 
         //Verify that the alert message says:
         //Your login was unsuccessful - please try again
-        Assertions.assertEquals("Your login was unsuccessful - please try again", loginSignupPage.getErrorMessageText());
+        Assertions.assertEquals("Your login was unsuccessful - please try again", loginSignupForm.getErrorMessageText());
 
         //Click the alert message dismiss icon (a red circle with a white X)
-        loginSignupPage.dismissErrorMessage();
+        loginSignupForm.dismissErrorMessage();
 
         //Verify that the alert message is no longer displayed
         WebDriverWait wait = new WebDriverWait(driver,5);
-
-        //Verify email error is not visible/empty
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("v-alert__content")));
 
     }
@@ -146,14 +142,14 @@ public class PizzaHQTestSuite extends BaseTest {
         menu.navigateToLoginOrSignupPage();
 
         //Enter ‘bob’ into the Username field
-        LoginSignupPage loginSignupPage = new LoginSignupPage(driver);
-        loginSignupPage.setUsername(username);
+        LoginSignupForm loginSignupForm = new LoginSignupForm(driver);
+        loginSignupForm.setUsername(username);
 
         //Enter ‘ilovepizza’ into the Password field
-        loginSignupPage.setPassword(password);
+        loginSignupForm.setPassword(password);
 
         //Click the LOGIN button
-        loginSignupPage.clickLoginButton();
+        loginSignupForm.clickLoginButton();
 
         //Click the PROFILE navigation menu item (it has a user icon and shows the username ‘BOB’)
         menu.navigateToYourProfilePage();
@@ -185,7 +181,50 @@ public class PizzaHQTestSuite extends BaseTest {
 
     @Test
     public void signupFieldValidationErrorMessagesTest(){
+        //Setup data
+        String username = "abc";
+        String password = "abc";
+        String confirmPassword = "def";
+        String expectedUsernameError = "Username is required";
+        String expectedPasswordError = "Password is required";
+        String expectedConfirmPasswordError = "Please confirm your password";
 
+        //Click the LOGIN/SIGNUP navigation menu item (it has a user icon)
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToLoginOrSignupPage();
+
+        //Click the ‘Not a member? Sign up’ link
+        LoginSignupForm loginSignupForm = new LoginSignupForm(driver);
+        loginSignupForm.clickSignupButton();
+
+        //Click the SIGN UP button
+        SignupForm signupForm = new SignupForm(driver);
+        signupForm.clickSignupButton();
+
+        //Verify the error text for the Username, Password and Confirm Password fields:
+        //Username is required
+        //Assertions.assertEquals(expectedUsernameError, signupForm.getErrorMessageText("username-err"));
+        //Password is required
+        //Assertions.assertEquals(expectedPasswordError, signupForm.getErrorMessageText("password-err"));
+        //Please confirm your password
+        //Assertions.assertEquals(expectedConfirmPasswordError, signupForm.getErrorMessageText("confirm-err"));
+
+        //Enter ‘abc’ into the Username field
+        //Enter ‘abc’ into the Password field
+        //Enter ‘def’ into the Confirm Password field
+        //Verify the error text for the Username, Password and Confirm Password fields:
+        //Username must be minimum of 6 characters
+        //Username must be minimum of 8 characters
+        //Your passwords do not match
+        //Enter ‘donaldtrump’ into the Username field
+        //Verify the error text for the Username field:
+        //Username already exists
+        //Enter ‘robinhood’ into the Username field
+        //Enter ‘letmein2019’ into the Password field
+        //Enter ‘letmein2019 into the Confirm Password field
+        //Verify the Username, Password and Confirm Password errors are empty or no longer displayed
+        //Verify that the snackbar popup message text is
+        //‘Thanks robinhood, you can now login.’
     }
 
     @Test
