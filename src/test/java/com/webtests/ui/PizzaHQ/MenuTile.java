@@ -1,7 +1,10 @@
 package com.webtests.ui.PizzaHQ;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class MenuTile {
 
@@ -9,6 +12,10 @@ public class MenuTile {
 
     public MenuTile(WebElement el){
         this.el = el;
+    }
+
+    public WebElement getWebElement(){
+        return el;
     }
 
     public String getMenuTileHeading(){
@@ -59,6 +66,40 @@ public class MenuTile {
         else {
             return false;
         }
+    }
+
+    public String getMenuTileRating(){
+        List<WebElement> ratingButtons = el.findElements(By.tagName("button"));
+        int rating = 0;
+        for(WebElement button : ratingButtons){
+            if(button.getText().equalsIgnoreCase("star")){
+                rating++;
+            }
+        }
+
+        return String.valueOf(rating);
+    }
+
+    public void rateMenuItem(String rating){
+        //Get the rating button equivalent to the rating input
+        List<WebElement> ratingButtons = el.findElements(By.tagName("button"));
+
+        for(WebElement button : ratingButtons){
+            if(button.getAttribute("aria-label").equalsIgnoreCase("Rating " + rating + " of 5")){
+                //If button is readonly, click will not be allowed
+                try{
+                    button.click();
+                }
+                catch(ElementClickInterceptedException e){
+                    System.out.println("Click error: " + e.getMessage());
+                }
+            }
+        }
+
+    }
+
+    public void clickOrder(){
+        el.findElement(By.className("v-btn__content")).click();
     }
 
 }

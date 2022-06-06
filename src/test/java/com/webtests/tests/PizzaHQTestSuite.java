@@ -316,27 +316,78 @@ public class PizzaHQTestSuite extends BaseTest {
     @Test
     public void menuItemRatingsTest(){
         //Navigate to the Menu page by clicking the MENU navigation menu item
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToMenuPage();
+
         //Click the DRINKS tab item
-        //Locate the menu item with a ‘0’ star rating and attempt to rate the item by clicking the third star.
+        MenuPage menuPage = new MenuPage(driver);
+        menuPage.clickTabButton("DRINKS");
+
+        //Locate the menu item with a ‘0’ star rating
+        MenuTile drinkTile = menuPage.getDrinkMenuTileByName("Turkish Delight Thickshake");
+        drinkTile.getMenuTileRating();
+        Assertions.assertEquals("0", drinkTile.getMenuTileRating());
+
+        //attempt to rate the item by clicking the third star.
+        //Refresh item
+        drinkTile = menuPage.getDrinkMenuTileByName("Turkish Delight Thickshake");
+        drinkTile.rateMenuItem("3");
         //Verify that the item still has a ‘0’ star rating
+        Assertions.assertEquals("0", drinkTile.getMenuTileRating());
+
         //Click the LOGIN/SIGNUP navigation menu item (it has a user icon)
+        menu.navigateToLoginOrSignupPage();
+        LoginSignupForm loginSignupForm = new LoginSignupForm(driver);
+
         //Enter ‘bob’ into the Username field
+        loginSignupForm.setUsername("bob");
         //Enter ‘ilovepizza’ into the Password field
+        loginSignupForm.setPassword("ilovepizza");
         //Click the LOGIN button
+        loginSignupForm.clickLoginButton();
+
         //Locate the menu item with a ‘0’ star rating and rate the item by clicking the third star
+        menuPage.clickTabButton("DRINKS");
+        drinkTile = menuPage.getDrinkMenuTileByName("Turkish Delight Thickshake");
+        drinkTile.getMenuTileRating();
+        drinkTile.rateMenuItem("3");
         //Verify that the menu item now has a ‘3’ star rating
+        drinkTile = menuPage.getDrinkMenuTileByName("Turkish Delight Thickshake");
+        Assertions.assertEquals("3", drinkTile.getMenuTileRating());
     }
 
     @Test
     public void orderCountAndItemSubtotalTest(){
         //Navigate to the Menu page by clicking the MENU navigation menu item
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToMenuPage();
+
         //Click the DRINKS tab item
+        MenuPage menuPage = new MenuPage(driver);
+        menuPage.clickTabButton("DRINKS");
+
         //Locate the ‘Espresso Thickshake’ menu item and click its ORDER button
+        MenuTile drinkTile = menuPage.getDrinkMenuTileByName("Espresso Thickshake");
+        drinkTile.clickOrder();
+
         //Click the PIZZAS tab item
+        menuPage.clickTabButton("PIZZAS");
+
         //Locate the ‘Margherita’ menu item and click its ORDER button twice
+        MenuTile pizzaTile = menuPage.getPizzaMenuTileByName("Margherita");
+        pizzaTile.clickOrder();
+        pizzaTile.clickOrder();
+
         //Verify that the order count icon in the navigation menu displays 3
+        Assertions.assertEquals("3", menu.getNumberOfCartItems());
+
         //Click the Your Order navigation menu icon
+        menu.navigateToYourOrderPage();
+
         //Locate the ‘Margherita’ item in the Your Order table and verify that the Subtotal displays 19.98.
+        YourOrderPage yourOrderPage = new YourOrderPage(driver);
+        yourOrderPage.getSubtotalByName("Margherita");
+        Assertions.assertEquals("19.98", yourOrderPage.getSubtotalByName("Margherita"));
 
     }
 }

@@ -48,6 +48,12 @@ public class PizzaHQMenu {
         yourProfileMenuButton.click();
     }
 
+    public String getNumberOfCartItems(){
+        String numOfItems = driver.findElement(By.cssSelector("[aria-label='your order']")).getText();
+        numOfItems = numOfItems.replaceAll("\nroom_service", "").trim();
+        return numOfItems;
+    }
+
     public void logout(){
         WebElement yourProfileMenuButton = driver.findElement(By.cssSelector("[aria-label='your profile']"));
 
