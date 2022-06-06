@@ -15,6 +15,31 @@ public class MenuTile {
         return el.findElement(By.className("name")).getText();
     }
 
+    public String getImgAltText(){
+        WebElement img = el.findElement(By.tagName("img"));
+        return img.getAttribute("alt");
+    }
+
+    public boolean getMenuTileVeganStatus(){
+        WebElement status = el.findElement(By.cssSelector("[aria-label='Badge']"));
+        if(status.getAttribute("class").equalsIgnoreCase("v-badge__badge orange")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean getMenuTileVegetarianStatus(){
+        WebElement status = el.findElement(By.cssSelector("[aria-label='Badge']"));
+        if(status.getAttribute("class").equalsIgnoreCase("v-badge__badge green")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public String getMenuTileDescription() {
         return el.findElement(By.className("description")).getText();
     }
@@ -26,4 +51,14 @@ public class MenuTile {
     public String getMenuTilePrice(){
         return el.findElement(By.className("price")).getText();
     }
+
+    public boolean getMenuTileNewStatus(){
+        if(el.findElement(By.tagName("span")).getText().equalsIgnoreCase("New")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 }

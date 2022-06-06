@@ -275,17 +275,42 @@ public class PizzaHQTestSuite extends BaseTest {
     public void newSideDishTest(){
 
         //Navigate to the Menu page by clicking the MENU navigation menu item
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToMenuPage();
+
         //Click the SIDES tab item
+        MenuPage menuPage = new MenuPage(driver);
+        menuPage.clickTabButton("SIDES");
+
         //Locate the menu item with the NEW flag and verify that:
+        MenuTile menuTile = menuPage.getSideMenuTileByName("Korean Sticky Wings");
         //The title is ‘Korean Sticky Wings’
+        Assertions.assertEquals("Korean Sticky Wings", menuTile.getMenuTileHeading());
+        //Check NEW flag
+        Assertions.assertTrue(menuTile.getMenuTileNewStatus());
         //The image has an alt attribute value of ‘Korean Sticky Wings’
+        Assertions.assertEquals("Korean Sticky Wings", menuTile.getImgAltText());
+
 
     }
 
     @Test
     public void veganPizzaSliceTest(){
         //Navigate to the Menu page by clicking the MENU navigation menu item
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToMenuPage();
+
         //Locate each of the Vegan pizzas and verify that the price is 14.99
+        MenuPage menuPage = new MenuPage(driver);
+        MenuTile veganHawaiianMenuTile = menuPage.getPizzaMenuTileByName("Vegan Hawaiian");
+        MenuTile veganSupremeMenuTile = menuPage.getPizzaMenuTileByName("Vegan Supreme");
+        //Verify pizzas are vegan
+        Assertions.assertTrue(veganHawaiianMenuTile.getMenuTileVeganStatus());
+        Assertions.assertTrue(veganSupremeMenuTile.getMenuTileVeganStatus());
+        //Verify price is $14.99
+        Assertions.assertEquals("$14.99", veganHawaiianMenuTile.getMenuTilePrice());
+        Assertions.assertEquals("$14.99", veganSupremeMenuTile.getMenuTilePrice());
+
     }
 
     @Test
