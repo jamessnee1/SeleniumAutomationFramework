@@ -254,10 +254,20 @@ public class PizzaHQTestSuite extends BaseTest {
     public void menuItemKilojoulesAndPriceTest(){
 
         //Navigate to the Menu page by clicking the MENU navigation menu item
+        PizzaHQMenu menu = new PizzaHQMenu(driver);
+        menu.navigateToMenuPage();
+
         //Click the SIDES tab item
+        MenuPage menuPage = new MenuPage(driver);
+        menuPage.clickTabButton("SIDES");
+
+
         //Locate the ‘Chunky Chips and Aioli’ menu item and verify that:
         //The Kilojoules are 3273
         //The price is 9.99
+        MenuTile menuTile = menuPage.getSideMenuTileByName("Chunky Chips and Aioli");
+        Assertions.assertEquals("3273 kJ", menuTile.getMenuTileKilojoules());
+        Assertions.assertEquals("$9.99", menuTile.getMenuTilePrice());
 
     }
 
